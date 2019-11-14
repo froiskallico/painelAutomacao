@@ -7,9 +7,9 @@ const CircuitController = require('./controllers/CircuitController');
 
 routes.get('/login', UserController.show);
 
-routes.get('/circuit', CircuitController.show);
-
 routes.get('/circuits', CircuitController.index);
+
+routes.put('/circuits', CircuitController.update);
 
 module.exports = routes;
 

@@ -7,14 +7,22 @@ module.exports = {
         var circuits = await Circuit.find(params);
 
         res.send(circuits);
-        
     },
 
-    async show(req, res) {
-        const { id } = req.query;
-        
-        var circuit = await Circuit.findById(id);     
+    async update(req, res) {
+        var params = req.query;
 
-        res.send(circuit);
+        var circuits = await Circuit.find(params)
+        
+        circuits.forEach((circuit) => {
+            circ = Circuit;
+
+            circ.create(circuit);
+
+            circ.toggle();
+        });
+
+        res.send(await Circuit.find(params));
     },
 }
+

@@ -1,59 +1,68 @@
 const sqlite = require('sqlite-sync');
 const path = require('path');
+const gpio = require('onoff').Gpio;
 
 const database = path.resolve(__dirname, '..', '..', 'database', 'database.db');
 
 sqlite.connect(database);
 
 var Circuit = {
-    _id: '',
-    _name: '',
-    _description: '',
-    _type: '',
-    _father: '',
-    _state: '',
-    _defaultState: '',
+    ID: '',
+    NAME: '',
+    DESCRIPTION: '',
+    TYPE: '',
+    FATHER: '',
+    GPIO: '',
+    STATE: '',
+    DEFAULTSTATE: '',
+
+    create(params) {
+        var keys = Object.keys(params);
+
+        keys.forEach((key) => {
+            this[key] = params[key];
+        });
+    },
 
     async find(params) {
-        console.log(params);
-
         var paramsKeys = Object.keys(params);
 
         var stringWhere = '';
 
-        if(paramsKeys.length > 1) {
+        if(paramsKeys.length > 0) {
             paramsKeys.forEach(function(key) {
                 stringWhere = stringWhere + key + " = " + params[key] + " AND ";                
             })
 
-            stringWhere = stringWhere.slice(0, -5);
-        } else if (paramsKeys.length = 1) {
-            paramsKeys.forEach(function(key) {
-                stringWhere = stringWhere + key + " = " + params[key];                
-            })
-        } 
-        
-        stringWhere = "WHERE " + stringWhere
+            stringWhere = "WHERE " + stringWhere.slice(0, -5);
+        }
 
-        var stringQuery = `SELECT * FROM CIRCUITS ${stringWhere};`
-        console.log(stringQuery);
+        var stringQuery = `SELECT * FROM CIRCUITS ${stringWhere};`;
+
+        //console.log(stringQuery);
 
         var res = await sqlite.run(stringQuery)
+        
 
         if (!res[0]) 
-            return "Erro! Nenhum circuito encontrado.";
+            return "Erro! Nenhum circuito encontrado.";      
 
         return res;
     },
 
-    async findById(id) {
-        var res = await sqlite.run(`SELECT * FROM CIRCUITS WHERE ID = ${id}`)
-        
-        if (!res[0])
-            return "Erro! Circuito não localizado";
+    async toggle() {
+        var newState = this.STATE == 1 ? 0 : 1;
 
-        return res;
-    },
+        await sqlite.run(`UPDATE OR ROLLBACK CIRCUITS SET STATE = ${newState} WHERE ID = ${this.ID}`);
+              
+        var storedState = await sqlite.run(`SELECT STATE FROM CIRCUITS WHERE ID = ${Circuit.ID}`)[0].STATE;
+
+        var output = new gpio(this.GPIO, 'out');
+
+        //output.writeSync(storedState);
+
+        return storedState;        
+    }, 
 };
 
 module.exports = Circuit;
