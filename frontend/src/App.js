@@ -1,17 +1,25 @@
 import React from 'react';
-import logo from './logo.svg';
 import './App.css';
+
+import Routes from './routes';
+
+import './pages/Login/styles.css';
+
+import logoTri from './assets/logos/tri.png';
+import logoFomtec from './assets/logos/fomtec.png';
+
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          "Hello Kallico"
-        </p>
-        
-      </header>
+    <div className="container">
+      <div className="content">
+        <Routes />
+      </div>
+
+      <div className="footer">
+        <img src={logoFomtec} alt="FOMTEC Soluções Elétricas"></img>
+        <img src={logoTri} id="logo-tri" alt="Power by: TRI"></img>
+      </div>
     </div>
   );
 }

@@ -1,0 +1,62 @@
+p {
+   color: #FFF;
+   font-weight: bolder;
+   font-size: 4rem;
+   padding: 10px;
+}
+
+#password {
+    border-radius: 4px;
+    text-align: center;
+    font-size: 2em;    
+    border: 1px solid #ddd;
+    margin: 10px;
+    height: 64px;
+}
+
+.next {
+    height: 64px;
+    width: 64px;
+    transform: scale(0.6);  
+    background: #16181b url('../../assets/icons/next.png') no-repeat;
+    border: 0;
+    margin: 10px;
+    z-index: 99;
+    position: absolute;
+}
+
+#keypad {
+    margin: 15px 0;
+}
+
+.key-line{
+    align-items: center;
+    padding: 5px;
+}
+
+.key {
+    width: 120px;
+    height: 60px;
+    border: 1px #ddd;
+    border-radius: 4px;
+    margin: 0 5px;
+    color: #ddd;
+    font-size: 32px;
+    background-color: #000;
+}
+
+.footer {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    width: 100%;
+    padding: 15px;
+}
+
+#logo-tri {
+    position: fixed;
+    bottom: 0;
+    right: 0;
+    padding: 15px
+}
+
