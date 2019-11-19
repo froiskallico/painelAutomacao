@@ -7,6 +7,8 @@ export default function Login({ history }) {
     const keys = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['X', '0', '<']];
 
     const [password, setPassword] = useState('');
+    const [keyValue, setKeyValue] = useState('');
+
 
     async function handleSubmit(event) {
         event.preventDefault();
@@ -15,14 +17,16 @@ export default function Login({ history }) {
 
         const { id } = response.data;
 
-        console.log(id);
-
         if (!id) {
             history.push('/LoginError');
         } else {
-            localStorage.setItem('user' , id);
+            localStorage.setItem('user', id);
             history.push('/main');
         }
+    };
+
+    function keyPress(value) {
+        console.log(value);        
     };
 
     return (
@@ -45,7 +49,12 @@ export default function Login({ history }) {
                 {keys.map(keyLine => (
                     <div className="key-line" key={keyLine}>
                         {keyLine.map(key => (
-                            <button className="key" key={key}>{key}</button>
+                            <button 
+                                className="key" 
+                                key={key} 
+                                type='button'
+                                onClick={keyPress('a')}
+                            >{key}</button>
                         ))}
                     </div>
                 ))}
