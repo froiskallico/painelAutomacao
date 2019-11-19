@@ -27,7 +27,7 @@ export default function Login({ history }) {
 
     return (
         <>
-            <p>LOGIN</p>
+            <h1>LOGIN</h1>
 
             <form onSubmit={handleSubmit}>
                 <input 

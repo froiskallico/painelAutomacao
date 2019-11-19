@@ -7,11 +7,16 @@ import './pages/Login/styles.css';
 
 import logoTri from './assets/logos/tri.png';
 import logoFomtec from './assets/logos/fomtec.png';
+import datateck from './assets/logos/datateck.png';
 
 
 function App() {
   return (
     <div className="container">
+      <div className="header">
+        <img src={datateck} alt="Datateck"></img>
+      </div>
+
       <div className="content">
         <Routes />
       </div>
