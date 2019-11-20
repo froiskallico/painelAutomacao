@@ -7,9 +7,7 @@ export default function Login({ history }) {
     const keys = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['X', '0', '<']];
 
     const [password, setPassword] = useState('');
-    const [keyValue, setKeyValue] = useState('');
-
-
+    
     async function handleSubmit(event) {
         event.preventDefault();
 
@@ -25,8 +23,14 @@ export default function Login({ history }) {
         }
     };
 
-    function keyPress(value) {
-        console.log(value);        
+    async function keyPress(value) {
+        if (value === '<') {
+            setPassword(password.slice(0, -1))
+        } else if (value === 'X') {
+            setPassword('')
+        } else {
+            setPassword(password + value);
+        }
     };
 
     return (
@@ -53,7 +57,8 @@ export default function Login({ history }) {
                                 className="key" 
                                 key={key} 
                                 type='button'
-                                onClick={keyPress('a')}
+                                value={key}
+                                onClick={() => {keyPress(key)}}
                             >{key}</button>
                         ))}
                     </div>

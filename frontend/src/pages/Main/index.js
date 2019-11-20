@@ -9,6 +9,10 @@ import lightIcon from '../../assets/icons/lightIcon.png';
 import compressorIcon from '../../assets/icons/compressorIcon.png';
 
 export default function Login({ history }) {
+    function toggle(id) {
+        console.log(window.alert(id))
+    };
+
     return (
         <>
             <div id="main">
@@ -22,7 +26,7 @@ export default function Login({ history }) {
                     <p>TOMADAS</p>
                 </div>
 
-                <div className="button" id="compressor">
+                <div className="button" id="compressor" onClick={() => {toggle(this.id)}}>
                     <img src={compressorIcon} alt=''></img>
                     <p>COMPRESSOR</p>
                 </div>
