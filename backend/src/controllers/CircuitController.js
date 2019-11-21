@@ -10,8 +10,8 @@ module.exports = {
     },
 
     async update(req, res) {
-        var params = req.query;
-
+        var { params } = req.body;
+        
         var circuits = await Circuit.find(params)
         
         circuits.forEach((circuit) => {

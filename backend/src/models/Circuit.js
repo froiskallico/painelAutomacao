@@ -57,7 +57,7 @@ var Circuit = {
               
         var storedState = await sqlite.run(`SELECT STATE FROM CIRCUITS WHERE ID = ${Circuit.ID}`)[0].STATE;
 
-        var output = new gpio(this.GPIO, 'out');
+        //var output = new gpio(this.GPIO, 'out');
 
         //output.writeSync(storedState);
 

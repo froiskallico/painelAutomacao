@@ -30,3 +30,7 @@ p {
     font-weight: 900;
     padding: 20px;
 }
+
+.button.active {
+    background: #00d700;
+}

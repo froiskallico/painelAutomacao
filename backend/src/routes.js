@@ -12,4 +12,3 @@ routes.get('/circuits', CircuitController.index);
 routes.put('/circuits', CircuitController.update);
 
 module.exports = routes;
-

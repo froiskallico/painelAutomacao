@@ -15,7 +15,7 @@ body {
   -webkit-font-smoothing: antialiased !important;
 }
 
-body, input, button {
+*, body, input, button {
   font-family: 'Play', Arial, Helvetica, sans-serif;
   font-size: 14px;
 }
@@ -57,4 +57,9 @@ body, input, button {
     bottom: 0;
     right: 0;
     padding: 15px
+}
+
+.dark-toast {
+  background: #788282;
+  color: #ecf0f0
 }
