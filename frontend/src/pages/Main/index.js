@@ -10,10 +10,10 @@ import lightIcon from '../../assets/icons/lightIcon.png';
 import compressorIcon from '../../assets/icons/compressorIcon.png';
 
 export default function Main({ history }) {
-    async function toggle(id) {
+   async function toggle(id) {
         var response = await api.put('/circuits', {
-            params: { id }
-        });
+                params: { id }
+            })
 
         var responseState = response.data[0].STATE;
 
@@ -22,15 +22,22 @@ export default function Main({ history }) {
         toast(`Circuito ${id} ${estado}`, { autoClose: 1500, className: 'dark-toast' })
     };    
 
+    function navigateTo(FATHER) {
+        history.push({
+            pathname: '/Circuit',
+            search: `TYPE=${FATHER}`
+        })
+    };
+
     return (
         <>
             <div id="main">
-                <div className="button" id="light">
+                <div className="button" id="ILUMINAÇÃO" onClick={() => {navigateTo("ILUMINAÇÃO")}}>
                     <img src={lightIcon} alt=''></img>
                     <p>ILUMINAÇÃO</p>
                 </div>
 
-                <div className="button" id="power">
+                <div className="button" id="FORÇA" onClick={() => {navigateTo("FORÇA")}}>
                     <img src={powerIcon} alt=''></img>
                     <p>TOMADAS</p>
                 </div>

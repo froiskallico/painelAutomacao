@@ -19,7 +19,7 @@ export default function Login({ history }) {
             history.push('/LoginError');
         } else {
             localStorage.setItem('user', id);
-            history.push('/main');
+            history.push('/Main');
         }
     };
 
