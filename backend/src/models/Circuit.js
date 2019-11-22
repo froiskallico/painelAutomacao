@@ -24,7 +24,7 @@ var Circuit = {
         });
     },
 
-    async find(params) {
+    async find(params) {    
         var paramsKeys = Object.keys(params);
 
         var stringWhere = '';
@@ -37,9 +37,9 @@ var Circuit = {
             stringWhere = "WHERE " + stringWhere.slice(0, -5);
         }
 
-        var stringQuery = `SELECT * FROM CIRCUITS ${stringWhere};`;
+        var stringQuery = `SELECT * FROM CIRCUITS ${stringWhere} ORDER BY NAME;`;
 
-        //console.log(stringQuery);
+        console.log(stringQuery);
 
         var res = await sqlite.run(stringQuery)
         

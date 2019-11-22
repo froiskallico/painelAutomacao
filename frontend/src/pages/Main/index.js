@@ -32,12 +32,12 @@ export default function Main({ history }) {
     return (
         <>
             <div id="main">
-                <div className="button" id="ILUMINAÇÃO" onClick={() => {navigateTo("ILUMINAÇÃO")}}>
+                <div className="button" id="ILUMINAÇÃO" onClick={() => {navigateTo('"ILUMINAÇÃO"')}}>
                     <img src={lightIcon} alt=''></img>
                     <p>ILUMINAÇÃO</p>
                 </div>
 
-                <div className="button" id="FORÇA" onClick={() => {navigateTo("FORÇA")}}>
+                <div className="button" id="FORÇA" onClick={() => {navigateTo('"FORÇA"')}}>
                     <img src={powerIcon} alt=''></img>
                     <p>TOMADAS</p>
                 </div>
