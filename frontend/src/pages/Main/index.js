@@ -46,7 +46,6 @@ export default function Main({ history }) {
                     <img src={compressorIcon} alt=''></img>
                     <p>COMPRESSOR</p>
                 </div>
-
                 
             </div>
         </>

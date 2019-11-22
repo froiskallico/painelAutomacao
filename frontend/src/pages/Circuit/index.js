@@ -1,9 +1,12 @@
 import React, { useState, useEffect } from 'react';
-import { toast } from 'react-toastify';
+//import { toast } from 'react-toastify';
 
 import api from '../../services/api';
 
 import './styles.css';
+
+import powerIcon from '../../assets/icons/powerIcon.png';
+import lightIcon from '../../assets/icons/lightIcon.png';
 
 const qs = require('query-string');
 
@@ -22,7 +25,7 @@ export default function Circuit({ history }) {
 
         loadCircuits();
 
-    }, []);
+    });
 
     console.log(circuits);
 
@@ -30,9 +33,9 @@ export default function Circuit({ history }) {
         <>
             <ul id="main">
                 {
-                    //Todo: mapear circuits, adicionar li para cada circuit...
                     circuits.map(circuit => (
-                        <li key={circuit.ID} className="button" id={circuit.ID}>
+                        <li key={circuit.ID} className="miniButton" id={circuit.ID}>
+                            <img src={circuit.TYPE === "ILUMINAÇÃO" ? lightIcon : powerIcon} height="30%" alt='' />
                             <p>{circuit.NAME}</p>
                         </li>
                     ))
