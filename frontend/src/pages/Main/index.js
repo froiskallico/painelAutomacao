@@ -10,7 +10,7 @@ import lightIcon from '../../assets/icons/lightIcon.png';
 import compressorIcon from '../../assets/icons/compressorIcon.png';
 
 export default function Main({ history }) {
-   async function toggle(id) {
+    async function toggle(id) {
         var response = await api.put('/circuits', {
                 params: { id }
             })

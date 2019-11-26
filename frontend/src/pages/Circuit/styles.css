@@ -1,5 +1,5 @@
 #main {
-    margin: 0 50px;
+    margin: 0 auto;
     position: absolute;
     top: 50%;
     -ms-transform: translateY(-50%);
@@ -9,12 +9,13 @@
 }
 
 ul {
+    padding: 0 50px;
     list-style-type: none;
 }
 
 li.miniButton {
     background: #535a5a;
-    width: 135%;
+    width: 135px;
     height: 135px;
     align-items: center;
     display: flex;
@@ -39,4 +40,5 @@ li.miniButton:hover {
 .miniButton > p {
     font-size: 1rem;
     text-align: center;
+    width: 135px;
 }
