@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-//import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import api from '../../services/api';
 
@@ -22,19 +22,30 @@ export default function Circuit({ history }) {
             
             setCircuits(response.data);
         }
-
+        
         loadCircuits();
 
     });
 
-    console.log(circuits);
+    async function toggle(id) {
+        var response = await api.put('/circuits', {
+            params: { id }
+        })
 
+        var circuitName = response.data[0].NAME;
+        var responseState = response.data[0].STATE;
+
+        var state = document.getElementById(id).classList.toggle("active", responseState === 1 ? true : false) ? 'Ligado' : 'Desligado';
+
+
+        toast(`Circuito ${circuitName} ${state}`, { autoClose: 1500, className: 'dark-toast'})
+    };
     return (
         <>
             <ul id="main">
                 {
                     circuits.map(circuit => (
-                        <li key={circuit.ID} className="miniButton" id={circuit.ID}>
+                        <li key={circuit.ID} className={`miniButton ${circuit.STATE === 1 ? 'active' : ''}`} id={circuit.ID} onClick={() => {toggle(`${circuit.ID}`)}}>
                             <img src={circuit.TYPE === "ILUMINAÇÃO" ? lightIcon : powerIcon} height="30%" alt='' />
                             <p>{circuit.NAME}</p>
                         </li>

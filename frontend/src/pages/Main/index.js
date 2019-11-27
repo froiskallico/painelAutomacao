@@ -12,14 +12,15 @@ import compressorIcon from '../../assets/icons/compressorIcon.png';
 export default function Main({ history }) {
     async function toggle(id) {
         var response = await api.put('/circuits', {
-                params: { id }
-            })
+            params: { id }
+        })
 
+        var circuitName = response.data[0].NAME;
         var responseState = response.data[0].STATE;
 
-        var estado = document.getElementById(id).classList.toggle("active", responseState === 1 ? true : false) ? 'Ligado' : 'Desligado';
+        var state = document.getElementById(id).classList.toggle("active", responseState === 1 ? true : false) ? 'Ligado' : 'Desligado';
 
-        toast(`Circuito ${id} ${estado}`, { autoClose: 1500, className: 'dark-toast' })
+        toast(`Circuito ${circuitName} ${state}`, { autoClose: 1500, className: 'dark-toast' })
     };    
 
     function navigateTo(FATHER) {

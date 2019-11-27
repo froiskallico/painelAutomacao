@@ -20,7 +20,7 @@ li.miniButton {
     align-items: center;
     display: flex;
     flex-direction: column;
-    margin: 5px;
+    margin: auto;
     box-shadow: 2px 2px 4px #000;
     border-radius: 4px;
 }
@@ -30,7 +30,7 @@ li.miniButton:hover {
 }
 
 .miniButton.active {
-    background: #00d700;
+    background: #00d700 !important;
 }
 
 .miniButton > img {
