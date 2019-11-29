@@ -27,7 +27,7 @@
 }
 
 p {
-    color: #ecf0f0;
+    color: #ddd;
     font-size: 24px;
     font-weight: 900;
     padding: 20px;
@@ -35,4 +35,8 @@ p {
 
 .button.active {
     background: #00d700;
+}
+
+.button.active > p {
+    color: #0c500c;
 }

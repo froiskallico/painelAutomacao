@@ -42,7 +42,7 @@ export default function Circuit({ history }) {
     };
     return (
         <>
-            <ul id="main">
+            <ul id="circuits">
                 {
                     circuits.map(circuit => (
                         <li key={circuit.ID} className={`miniButton ${circuit.STATE === 1 ? 'active' : ''}`} id={circuit.ID} onClick={() => {toggle(`${circuit.ID}`)}}>

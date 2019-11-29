@@ -1,16 +1,12 @@
-#main {
+#circuits {
     margin: 0 auto;
     position: absolute;
     top: 50%;
-    -ms-transform: translateY(-50%);
     transform: translateY(-50%);
-    display: flex;
-    flex-direction: row;
-}
-
-ul {
-    padding: 0 50px;
-    list-style-type: none;
+    display: grid;
+    grid-template-columns: 135px 135px 135px 135px 135px;
+    grid-template-rows: auto;
+    grid-gap: 20px;
 }
 
 li.miniButton {
@@ -20,7 +16,6 @@ li.miniButton {
     align-items: center;
     display: flex;
     flex-direction: column;
-    margin: auto;
     box-shadow: 2px 2px 4px #000;
     border-radius: 4px;
 }
@@ -33,12 +28,20 @@ li.miniButton:hover {
     background: #00d700 !important;
 }
 
+.miniButton.active > p {
+    color: #0c500c !important;
+}
+
 .miniButton > img {
     margin-top: 30px;    
+    color: #0c500c;
 }
 
 .miniButton > p {
-    font-size: 1rem;
-    text-align: center;
-    width: 135px;
+    padding: 0;
+    margin-top: 10px;
+    font-size: 80%;
+    text-align: center;    
+    max-width: 135px;
+    color: #ddd;
 }
