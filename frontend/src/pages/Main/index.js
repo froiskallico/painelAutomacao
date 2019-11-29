@@ -30,6 +30,23 @@ export default function Main({ history }) {
         })
     };
 
+    async function loadCompressorState() {
+        var compressor = await api.get('/circuits', {
+            params: { 'ID': '18' }
+        });
+
+        var compressorState = compressor.data[0].STATE;
+
+        if (compressorState === 1) {
+            document.getElementById("18").classList.toggle("active", true)
+        }
+
+        
+    };
+
+    loadCompressorState();
+
+
     return (
         <>
             <div id="main">
