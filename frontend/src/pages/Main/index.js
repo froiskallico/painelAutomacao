@@ -19,7 +19,7 @@ export default function Main({ history }) {
     authTimeout(() => {
         logout(sessionToken);
         history.push('/'); 
-    }, 10);
+    }, 90);
 
     async function toggle(id) {
         var response = await api.put('/circuits', {
