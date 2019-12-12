@@ -3,13 +3,24 @@ import { toast } from 'react-toastify';
 
 import api from '../../services/api';
 
+import { logout, getToken } from '../../services/auth';
+import '../../services/authTimeout';
+
 import './styles.css';
 
 import powerIcon from '../../assets/icons/powerIcon.png';
 import lightIcon from '../../assets/icons/lightIcon.png';
 import compressorIcon from '../../assets/icons/compressorIcon.png';
+import authTimeout from '../../services/authTimeout';
 
 export default function Main({ history }) {
+    const sessionToken = getToken();
+
+    authTimeout(() => {
+        logout(sessionToken);
+        history.push('/'); 
+    }, 10);
+
     async function toggle(id) {
         var response = await api.put('/circuits', {
             params: { id }
@@ -20,7 +31,13 @@ export default function Main({ history }) {
 
         var state = document.getElementById(id).classList.toggle("active", responseState === 1 ? true : false) ? 'Ligado' : 'Desligado';
 
-        toast(`Circuito ${circuitName} ${state}`, { autoClose: 1500, className: 'dark-toast' })
+        toast(
+            `Circuito ${circuitName} ${state}`, 
+            { 
+                autoClose: 1500, 
+                className: 'dark-toast' 
+            }
+        );
     };    
 
     function navigateTo(FATHER) {
