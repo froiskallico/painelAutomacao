@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 
 import api from '../../services/api';
 
+import { login  } from "../../services/auth"; 
+
 export default function Login({ history }) {
     
     const keys = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['X', '0', '<']];
@@ -11,15 +13,21 @@ export default function Login({ history }) {
     async function handleSubmit(event) {
         event.preventDefault();
 
-        const response = await api.post('/login', { password });
-
-        const { id } = response.data;
-
-        if (!id) {
-            history.push('/LoginError');
+        if (!password) {
+            
         } else {
-            localStorage.setItem('user', id);
-            history.push('/Main');
+            try {
+                const response = await api.post('/login', { password });
+
+                if (response.data.username !== undefined) {
+                    login(response.data.username)
+                    history.push("/Main");   
+                } else {
+                    throw Error("Erro. Usuario nao encontrado");
+                }                
+            } catch (err) {
+                history.push("/LoginError");
+            }
         }
     };
 

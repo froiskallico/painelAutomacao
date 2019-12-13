@@ -7,11 +7,17 @@ import Routes from './routes';
 
 import './pages/Login/styles.css';
 
+import { isAuthenticated, logout } from './services/auth';
+
 import logoTri from './assets/logos/tri.png';
 import logoFomtec from './assets/logos/fomtec.png';
 import datateck from './assets/logos/datateck.png';
 
 function App() {
+  if (isAuthenticated()) {
+    logout()
+  } 
+  
   return (
     <div className="container">
       <div className="header">

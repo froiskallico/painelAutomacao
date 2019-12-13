@@ -3,23 +3,41 @@ import { toast } from 'react-toastify';
 
 import api from '../../services/api';
 
+import { logout, getToken } from '../../services/auth';
+import '../../services/authTimeout';
+
 import './styles.css';
 
 import powerIcon from '../../assets/icons/powerIcon.png';
 import lightIcon from '../../assets/icons/lightIcon.png';
 import compressorIcon from '../../assets/icons/compressorIcon.png';
+import authTimeout from '../../services/authTimeout';
 
 export default function Main({ history }) {
-   async function toggle(id) {
-        var response = await api.put('/circuits', {
-                params: { id }
-            })
+    const sessionToken = getToken();
 
+    authTimeout(() => {
+        logout(sessionToken);
+        history.push('/'); 
+    }, 90);
+
+    async function toggle(id) {
+        var response = await api.put('/circuits', {
+            params: { id }
+        })
+
+        var circuitName = response.data[0].NAME;
         var responseState = response.data[0].STATE;
 
-        var estado = document.getElementById(id).classList.toggle("active", responseState === 1 ? true : false) ? 'Ligado' : 'Desligado';
+        var state = document.getElementById(id).classList.toggle("active", responseState === 1 ? true : false) ? 'Ligado' : 'Desligado';
 
-        toast(`Circuito ${id} ${estado}`, { autoClose: 1500, className: 'dark-toast' })
+        toast(
+            `Circuito ${circuitName} ${state}`, 
+            { 
+                autoClose: 1500, 
+                className: 'dark-toast' 
+            }
+        );
     };    
 
     function navigateTo(FATHER) {
@@ -28,6 +46,23 @@ export default function Main({ history }) {
             search: `TYPE=${FATHER}`
         })
     };
+
+    async function loadCompressorState() {
+        var compressor = await api.get('/circuits', {
+            params: { 'ID': '18' }
+        });
+
+        var compressorState = compressor.data[0].STATE;
+
+        if (compressorState === 1) {
+            document.getElementById("18").classList.toggle("active", true)
+        }
+
+        
+    };
+
+    loadCompressorState();
+
 
     return (
         <>

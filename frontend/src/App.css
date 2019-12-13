@@ -29,7 +29,7 @@ body {
 }
 
 .container {
-  margin: 40px auto;
+  margin: auto;
   max-width: 1024px;
   width: 100%;
   display: flex;
@@ -61,5 +61,10 @@ body {
 
 .dark-toast {
   background: #788282;
+  color: #ecf0f0
+}
+
+.timeout-toast {
+  background: #b60f0f;
   color: #ecf0f0
 }
