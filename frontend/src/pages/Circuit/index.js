@@ -2,17 +2,27 @@ import React, { useState, useEffect } from 'react';
 import { toast } from 'react-toastify';
 
 import api from '../../services/api';
+import { logout, getToken } from '../../services/auth';
+import '../../services/authTimeout';
 
 import './styles.css';
 
 import powerIcon from '../../assets/icons/powerIcon.png';
 import lightIcon from '../../assets/icons/lightIcon.png';
+import authTimeout from '../../services/authTimeout';
 
 const qs = require('query-string');
 
 export default function Circuit({ history }) {    
     const parsed = qs.parse(history.location.search);
     const [circuits, setCircuits] = useState([]);
+
+    const sessionToken = getToken();
+
+    authTimeout(() => {
+        logout(sessionToken);
+        history.push('/'); 
+    }, 90)  ;
 
     useEffect(() => {
         async function loadCircuits() {
@@ -40,6 +50,7 @@ export default function Circuit({ history }) {
 
         toast(`Circuito ${circuitName} ${state}`, { autoClose: 1500, className: 'dark-toast'})
     };
+
     return (
         <>
             <ul id="circuits">

@@ -2,22 +2,32 @@ import React, { useState } from 'react';
 
 import api from '../../services/api';
 
-import { login  } from "../../services/auth"; 
+import { login, isAuthenticated, logout } from "../../services/auth"; 
+import { toast } from 'react-toastify';
 
 export default function Login({ history }) {
     
     const keys = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['X', '0', '<']];
 
     const [password, setPassword] = useState('');
-    
+
+    if (isAuthenticated()) {
+        logout();
+        toast.error("Você saiu!");
+    };
+        
     async function handleSubmit(event) {
         event.preventDefault();
 
         if (!password) {
-            
+            toast.error("Digite uma senha");
         } else {
+            toast.info("Autenticando... Por favor aguarde")
+
             try {
                 const response = await api.post('/login', { password });
+                
+                toast.dismiss();
 
                 if (response.data.username !== undefined) {
                     login(response.data.username)
@@ -73,6 +83,5 @@ export default function Login({ history }) {
                 ))}
             </div>
         </>
-
     )
 }
