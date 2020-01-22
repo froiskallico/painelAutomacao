@@ -17,9 +17,9 @@ export default function Main({ history }) {
     const sessionToken = getToken();
 
     authTimeout(() => {
+        history.push('/');
         logout(sessionToken);
-        history.push('/'); 
-    }, 90);
+    }, 30);
 
     async function toggle(id) {
         var response = await api.put('/circuits', {
@@ -57,8 +57,6 @@ export default function Main({ history }) {
         if (compressorState === 1) {
             document.getElementById("18").classList.toggle("active", true)
         }
-
-        
     };
 
     loadCompressorState();
