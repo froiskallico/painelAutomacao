@@ -2,11 +2,12 @@ import React, { useState } from 'react';
 
 import api from '../../services/api';
 
-import { login, isAuthenticated, logout } from "../../services/auth"; 
+import { login, isAuthenticated, logout } from "../../services/auth";
 import { toast } from 'react-toastify';
 
+import authTimeout from '../../services/authTimeout';
+
 export default function Login({ history }) {
-    
     const keys = [['1', '2', '3'], ['4', '5', '6'], ['7', '8', '9'], ['X', '0', '<']];
 
     const [password, setPassword] = useState('');
@@ -15,7 +16,7 @@ export default function Login({ history }) {
         logout();
         toast.error("Você saiu!");
     };
-        
+
     async function handleSubmit(event) {
         event.preventDefault();
 
@@ -26,15 +27,21 @@ export default function Login({ history }) {
 
             try {
                 const response = await api.post('/login', { password });
-                
+
                 toast.dismiss();
 
                 if (response.data.username !== undefined) {
-                    login(response.data.username)
-                    history.push("/Main");   
+                    login(response.data.username);
+                    history.push("/Main");
+
+                    authTimeout(() => {
+                      history.push('/');
+                      logout();
+                    }, 10);
+
                 } else {
                     throw Error("Erro. Usuario nao encontrado");
-                }                
+                }
             } catch (err) {
                 history.push("/LoginError");
             }
@@ -56,7 +63,7 @@ export default function Login({ history }) {
             <h1>LOGIN</h1>
 
             <form onSubmit={handleSubmit}>
-                <input 
+                <input
                     type="password"
                     id="password"
                     placeholder="Digite sua senha"
@@ -71,9 +78,9 @@ export default function Login({ history }) {
                 {keys.map(keyLine => (
                     <div className="key-line" key={keyLine}>
                         {keyLine.map(key => (
-                            <button 
-                                className="key" 
-                                key={key} 
+                            <button
+                                className="key"
+                                key={key}
                                 type='button'
                                 value={key}
                                 onClick={() => {keyPress(key)}}
