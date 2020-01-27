@@ -39,10 +39,7 @@ var Circuit = {
 
         var stringQuery = `SELECT * FROM CIRCUITS ${stringWhere} ORDER BY NAME;`;
 
-        console.log(stringQuery);
-
         var res = await sqlite.run(stringQuery)
-        
 
         if (!res[0]) 
             return "Erro! Nenhum circuito encontrado.";      
@@ -58,11 +55,19 @@ var Circuit = {
         var storedState = await sqlite.run(`SELECT STATE FROM CIRCUITS WHERE ID = ${Circuit.ID}`)[0].STATE;
 
         var output = new gpio(this.GPIO, 'out');
-
         output.writeSync(storedState);
 
         return storedState;        
     }, 
+
+    async loadAll() {
+        const circuits = await sqlite.run(`SELECT ID, STATE FROM CIRCUITS`);
+
+        circuits.forEach(async(circuit) => {
+            var output = new gpio(circuit.GPIO, 'out');
+            output.writeSync(circuit.STATE);            
+        });
+    },
 };
 
 module.exports = Circuit;

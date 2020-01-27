@@ -11,9 +11,9 @@ module.exports = {
 
     async update(req, res) {
         var { params } = req.body;
-        
+
         var circuits = await Circuit.find(params)
-        
+
         circuits.forEach((circuit) => {
             circ = Circuit;
 
