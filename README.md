@@ -1,6 +1,20 @@
-# painelAutomacao
+# Projeto Automação Fabril
 
-#ToDo:
-    - Frontend:
-        -- Check responsivity (on Mobile);
-        -- Turn all childs off if father is turned off;
+Projeto consiste em servidor em NODE.JS e frontend em ReactJS que rodará em uma Raspberry Pi 3B+. 
+
+## Node JS
+
+API RESTful usando Express Framework controla as GPIO de uma Raspberry Pi que controlará as cargas de iluminação e força de uma indústria
+
+## React
+
+Frontend usando ReactJS com autenticação simples sem criptografia, ainda sem responsvidade completa para mobile pois a ideia é que seja um painel touchscreen na entrada de uma industria
+
+## Projeto Real
+
+Esse projeto é real e está rodando atualmente na Datateck Chicotes Elétricos em Guaíba/RS
+
+## Todo:
+
+- Responsividade para Mobile Devices
+
