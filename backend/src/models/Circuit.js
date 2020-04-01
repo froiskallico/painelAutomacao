@@ -75,12 +75,14 @@ var Circuit = {
 
         circuits.forEach(async(circuit) => {
             console.log(circuit);
-            await sqlite.run(`UPDATE OR ROLLBACK CIRCUITS SET STATE = 0 WHERE ID = ${circuit}`);
+            query = `UPDATE OR ROLLBACK CIRCUITS SET STATE = 0 WHERE ID = ${circuit}`
+            console.log(query);
+            await sqlite.run(query);
 
             var output = new gpio(this.GPIO, 'out');
-            output.writeSync(storedState);
+            output.writeSync(0);
 
-            return storedState;    
+            return 0;    
         });        
     },
 
