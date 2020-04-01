@@ -75,7 +75,7 @@ var Circuit = {
 
         circuits.forEach(async(circuit) => {
             console.log(circuit);
-            query = `UPDATE OR ROLLBACK CIRCUITS SET STATE = 0 WHERE ID = ${circuit}`
+            query = `UPDATE OR ROLLBACK CIRCUITS SET STATE = 0 WHERE ID = ${circuit.ID}`
             console.log(query);
             await sqlite.run(query);
 
