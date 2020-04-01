@@ -57,6 +57,8 @@ var Circuit = {
         var output = new gpio(this.GPIO, 'out');
         output.writeSync(storedState);
 
+        output.unexport();
+
         return storedState;        
     }, 
 
@@ -71,7 +73,7 @@ var Circuit = {
 
     async turnAllOff() {
         
-        const circuits = await sqlite.run('SELECT ID FROM CIRCUITS');
+        const circuits = await sqlite.run('SELECT ID, GPIO FROM CIRCUITS');
 
         circuits.forEach(async(circuit) => {
             console.log(circuit);
@@ -79,9 +81,10 @@ var Circuit = {
             console.log(query);
             await sqlite.run(query);
 
-            var output = new gpio(this.GPIO, 'out');
+            var output = new gpio(circuit.GPIO, 'out');
             output.writeSync(0);
 
+            output.unexport();
             return 0;    
         });        
     },
