@@ -9,7 +9,7 @@ sqlite.connect(database);
 var Circuit = {
     ID: '',
     NAME: '',
-    DESCRIPTION: '',
+    DESCRIPTION: '',     
     TYPE: '',
     FATHER: '',
     GPIO: '',
@@ -68,6 +68,22 @@ var Circuit = {
             output.writeSync(circuit.STATE);            
         });
     },
+
+    async turnAllOff() {
+        
+        const circuits = await sqlite.run('SELECT ID FROM CIRCUITS');
+
+        circuits.forEach(async(circuit) => {
+            console.log(circuit);
+            await sqlite.run(`UPDATE OR ROLLBACK CIRCUITS SET STATE = 0 WHERE ID = ${circuit}`);
+
+            var output = new gpio(this.GPIO, 'out');
+            output.writeSync(storedState);
+
+            return storedState;    
+        });        
+    },
+
 };
 
 module.exports = Circuit;
