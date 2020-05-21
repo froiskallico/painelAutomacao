@@ -71,8 +71,7 @@ var Circuit = {
     },
 
     async turnAllOff() {
-        
-        await sqlite.run('UPDATE CIRCUITS SET STATE = 0 WHERE STATE = 1;');
+        await sqlite.run('UPDATE CIRCUITS SET STATE = 0 WHERE STATE = 1 AND ID NOT IN (18, 13);');
 
         const circuits = await sqlite.run(`SELECT ID, GPIO, STATE FROM CIRCUITS`);
 
