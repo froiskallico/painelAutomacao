@@ -37,7 +37,7 @@ var Circuit = {
             stringWhere = "WHERE " + stringWhere.slice(0, -5);
         }
 
-        var stringQuery = `SELECT * FROM CIRCUITS ${stringWhere} ORDER BY NAME;`;
+        var stringQuery = `SELECT * FROM CIRCUITS ${stringWhere} ORDER BY ID;`;
 
         var res = await sqlite.run(stringQuery)
 
@@ -57,13 +57,12 @@ var Circuit = {
         var output = new gpio(this.GPIO, 'out');
         output.writeSync(storedState);
 
-        output.unexport();
 
         return storedState;        
     }, 
 
     async loadAll() {
-        const circuits = await sqlite.run(`SELECT ID, STATE FROM CIRCUITS`);
+        const circuits = await sqlite.run(`SELECT ID, GPIO, STATE FROM CIRCUITS`);
 
         circuits.forEach(async(circuit) => {
             var output = new gpio(circuit.GPIO, 'out');
@@ -73,20 +72,14 @@ var Circuit = {
 
     async turnAllOff() {
         
-        const circuits = await sqlite.run('SELECT ID, GPIO FROM CIRCUITS');
+        await sqlite.run('UPDATE CIRCUITS SET STATE = 0 WHERE STATE = 1;');
+
+        const circuits = await sqlite.run(`SELECT ID, GPIO, STATE FROM CIRCUITS`);
 
         circuits.forEach(async(circuit) => {
-            console.log(circuit);
-            query = `UPDATE OR ROLLBACK CIRCUITS SET STATE = 0 WHERE ID = ${circuit.ID}`
-            console.log(query);
-            await sqlite.run(query);
-
             var output = new gpio(circuit.GPIO, 'out');
-            output.writeSync(0);
-
-            output.unexport();
-            return 0;    
-        });        
+            output.writeSync(circuit.STATE);            
+        });
     },
 
 };
