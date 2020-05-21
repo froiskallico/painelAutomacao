@@ -37,7 +37,7 @@ export default function Login({ history }) {
                     authTimeout(() => {
                       history.push('/');
                       logout();
-                    }, 10);
+                    }, 30);
 
                 } else {
                     throw Error("Erro. Usuario nao encontrado");
